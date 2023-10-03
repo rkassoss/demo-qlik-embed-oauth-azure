@@ -13,11 +13,19 @@
         border-radius: 3px;
         box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
       }
+      .object {
+        position: relative;
+        width: 33%;
+        height: 400px;
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+      }
     </style>
     <script
     crossorigin="anonymous"
     type="application/javascript"
-    src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components@0.4.0"
+    src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components"
     data-host="https://kassovitz.us.qlikcloud.com"
     data-client-id="2e2c3a66c97818c67a21d21c1c27d788"
     data-redirect-uri="https://blue-field-0d58c770f.3.azurestaticapps.net/oauth_callback.html"
@@ -42,6 +50,32 @@
         ui="classic/app"
         app-id="d6152f1d-c366-4471-8aa6-7ae473e63f59"
         sheet-id="XuWLHFK"
+        >
+        </qlik-embed>
+      </div>
+
+      <h1>Objects</h1>
+      <div class="object">
+        <qlik-embed
+        ui="object"
+        app-id="d6152f1d-c366-4471-8aa6-7ae473e63f59"
+        object-id="SqDbku"
+        >
+        </qlik-embed>
+      </div>
+      <div class="object">
+        <qlik-embed
+        ui="object"
+        app-id="d6152f1d-c366-4471-8aa6-7ae473e63f59"
+        object-id="mTjVeM"
+        >
+        </qlik-embed>
+      </div>
+      <div class="object">
+        <qlik-embed
+        ui="object"
+        app-id="d6152f1d-c366-4471-8aa6-7ae473e63f59"
+        object-id="jhTmTRy"
         >
         </qlik-embed>
       </div>
