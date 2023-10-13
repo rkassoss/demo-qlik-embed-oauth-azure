@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script
+        crossorigin="anonymous"
+        type="application/javascript"
+        src="https://cdn.jsdelivr.net/npm/@qlik/embed-web-components"
+        data-host="https://kassovitz.us.qlikcloud.com"
+        data-auth-type="Oauth2"
+        data-client-id="2e2c3a66c97818c67a21d21c1c27d788"
+        data-redirect-uri="https://localhost:5500/oauth_callback.html"
+        data-auth-redirect-user-confirmation="confirmRedirectToLoginPage"
+    ></script>
+    <!-- Custom auth redirect dialog -->
+    <style>
+      .login-dialog-backdrop {
+        inset: 0;
+        position: absolute;
+        font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-dialog-content {
+        width: 400px;
+        height: 200px;
+        background-color: #ddd;
+        border: 1px solid #aaa;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      }
+      .login-dialog-text {
+        text-align: center;
+      }
+      .login-dialog-button {
+        height: 32px;
+        padding-left: 24px;
+        padding-right: 24px;
+        border-radius: 4px;
+        color: white;
+        border: 1px solid #aaa;
+        background-color: #eee;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        color: #555;
+      }
+    </style>
+    <template id="login-dialog-template">
+      <div class="login-dialog-backdrop">
+        <div class="login-dialog-content">
+          <div class="login-dialog-text">
+            This is a custom dialog. Please click the button below to authorize the charts.
+          </div>
+          <button class="login-dialog-button" data-testid="custom-goto-login-button">Go to login page</button>
+        </div>
+      </div>
+    </template>
+    <script>
+      let proceedToLogin;
+      function confirmRedirectToLoginPage() {
+        return new Promise((resolve) => {
+          const dialog = document.querySelector("#login-dialog-template").content.children[0].cloneNode(true);
+          const button = dialog.querySelector(".login-dialog-button");
+          button.addEventListener("click", function (event) {
+            button.disabled = true;
+            button.textContent = "Redirecting to login page....";
+            resolve();
+          });
+          document.body.appendChild(dialog);
+        });
+      }
+    </script>
+    <!-- End of custom auth redirect dialog -->
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        height: 100%;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <qlik-embed
+        id="visualization"
+        ui="analytics/chart"
+        app-id="d6152f1d-c366-4471-8aa6-7ae473e63f59"
+        object-id="SqDbku"
+    ></qlik-embed>
+  </body>
