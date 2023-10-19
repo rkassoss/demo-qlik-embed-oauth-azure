@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .app {
+        position: relative;
+        width: 100%;
+        height: calc(100vh - 180px);
+        border: 1px solid #bbb;
+        border-radius: 3px;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Full app - IFrame</h1>
+    <p>Need to add `allow="clipboard-write"` to the iframe below to allow copy cell value from Qlik table</p>
+    <div class="app">
+      <h2>without allow="clipboard-write"</h2>
+      <iframe 
+      src="https://kassovitz.us.qlikcloud.com/sense/app/d6152f1d-c366-4471-8aa6-7ae473e63f59/sheet/zBAFH/state/analysis"
+      style="border:none;width:100%;height:800px; border: 1px solid red"></iframe>
+    </div>
+
+    <div class="app">
+        <h2>With allow="clipboard-write"</h2>
+        <iframe 
+        src="https://kassovitz.us.qlikcloud.com/sense/app/d6152f1d-c366-4471-8aa6-7ae473e63f59/sheet/zBAFH/state/analysis"
+        allow="clipboard-write"
+        style="border:none;width:100%;height:800px; border: 1px solid green;"></iframe>
+      </div>
+    
+  </body>
+</html>
