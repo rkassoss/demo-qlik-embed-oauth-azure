@@ -83,5 +83,86 @@
       </div>
 
     </div>
+    
+    <h1>Sheet embed with sheet list generated with engine API</h1>
+    <select id="sheetdrop" name="SheetList">
+    </select>
+        <div class="app">
+          <qlik-embed
+            id="sheetItem"
+            ui="object"
+            app-id="d6152f1d-c366-4471-8aa6-7ae473e63f59"
+            object-id="zBAFH"
+          ></qlik-embed>
+        </div>
+    
+    <h1>Full app classic</h1>
+    <div class="app">
+      <qlik-embed
+      ui="classic/app"
+      app-id="d6152f1d-c366-4471-8aa6-7ae473e63f59"
+      sheet-id="zBAFH"
+      allow="clipboard-write"
+      >
+      </qlik-embed>
+    </div>
+
   </body>
+
+  <script type="module">
+    const element = document.getElementById("visualization");
+    const sheetItem = document.getElementById("sheetItem");
+    const refApi = await element.getRefApi();
+    //const obj = await refApi.getObject();
+    const doc = await refApi.getDoc();
+    //const appProps = await refApi.getAppLayout();
+    const myList = await doc.getSheetList();
+    console.log("myList");
+    console.log(myList);
+    const obj = await doc.createSessionObject({
+          "qInfo": {
+            "qId": "sheetList",
+            "qType": "SheetList"
+          },
+          "qAppObjectListDef": {
+            "qType": "sheet",
+            "qData": {
+              "title": "/qMetaDef/title",
+              "thumbnail": "/thumbnail",
+              "cells": "/cells",
+              "rank": "/rank",
+              "columns": "/columns",
+              "rows": "/rows"
+            }
+          }
+        });
+    const sheetsLayout = await obj.getLayout();
+    const sheetList = sheetsLayout.qAppObjectList.qItems;
+    let dd = document.getElementById('sheetdrop');
+    dd.length = 0;
+    let defaultOption = document.createElement('option');
+    defaultOption.text = "Select a sheet to navigate to";
+    dd.add(defaultOption);
+    dd.selectedIndex=0;
+
+    let option;
+    for (let i=0;i<sheetList.length; i++) {
+      option = document.createElement('option');
+      option.text = sheetList[i].qMeta.title;
+      option.value = sheetList[i].qMeta.id;
+      dd.add(option);
+    }
+
+    dd.addEventListener("change", function() {
+      if (dd.selectedIndex > 0)
+      {
+        console.log(dd.options[dd.selectedIndex].value);
+        let selOption = dd.options[dd.selectedIndex];
+        console.log(selOption.value);
+        sheetItem.setAttribute('object-id', selOption.value);
+      }
+    });
+    
+  </script>
+
 </html>
